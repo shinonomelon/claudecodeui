@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
 import ClaudeLogo from './ClaudeLogo';
+import LanguageToggle from './LanguageToggle';
 
 const LoginForm = () => {
+  const { t } = useTranslation();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -34,14 +37,19 @@ const LoginForm = () => {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="bg-card rounded-lg shadow-lg border border-border p-8 space-y-6">
+          {/* Language Toggle */}
+          <div className="flex justify-end mb-4">
+            <LanguageToggle />
+          </div>
+          
           {/* Logo and Title */}
           <div className="text-center">
             <div className="flex justify-center mb-4">
               <ClaudeLogo size={64} />
             </div>
-            <h1 className="text-2xl font-bold text-foreground">Welcome Back</h1>
+            <h1 className="text-2xl font-bold text-foreground">{t('auth.welcome')}</h1>
             <p className="text-muted-foreground mt-2">
-              Sign in to your Claude Code UI account
+              {t('auth.enterCredentials')}
             </p>
           </div>
 
@@ -49,7 +57,7 @@ const LoginForm = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label htmlFor="username" className="block text-sm font-medium text-foreground mb-1">
-                Username
+                {t('auth.username')}
               </label>
               <input
                 type="text"
@@ -57,7 +65,7 @@ const LoginForm = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Enter your username"
+                placeholder={t('auth.username')}
                 required
                 disabled={isLoading}
               />
@@ -65,7 +73,7 @@ const LoginForm = () => {
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-foreground mb-1">
-                Password
+                {t('auth.password')}
               </label>
               <input
                 type="password"
@@ -73,7 +81,7 @@ const LoginForm = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="Enter your password"
+                placeholder={t('auth.password')}
                 required
                 disabled={isLoading}
               />
@@ -90,7 +98,7 @@ const LoginForm = () => {
               disabled={isLoading}
               className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-medium py-2 px-4 rounded-md transition-colors duration-200"
             >
-              {isLoading ? 'Signing in...' : 'Sign In'}
+              {isLoading ? t('auth.signingIn') : t('auth.login')}
             </button>
           </form>
 

@@ -1,28 +1,34 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { MessageSquare, Folder, Terminal, GitBranch, Globe } from 'lucide-react';
 
 function MobileNav({ activeTab, setActiveTab, isInputFocused }) {
+  const { t } = useTranslation();
   // Detect dark mode
   const isDarkMode = document.documentElement.classList.contains('dark');
   const navItems = [
     {
       id: 'chat',
       icon: MessageSquare,
+      label: t('nav.chat'),
       onClick: () => setActiveTab('chat')
     },
     {
       id: 'shell',
       icon: Terminal,
+      label: t('nav.shell'),
       onClick: () => setActiveTab('shell')
     },
     {
       id: 'files',
       icon: Folder,
+      label: t('nav.files'),
       onClick: () => setActiveTab('files')
     },
     {
       id: 'git',
       icon: GitBranch,
+      label: t('nav.git'),
       onClick: () => setActiveTab('git')
     }
   ];
@@ -62,7 +68,7 @@ function MobileNav({ activeTab, setActiveTab, isInputFocused }) {
                   ? 'text-blue-600 dark:text-blue-400'
                   : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
               }`}
-              aria-label={item.id}
+              aria-label={item.label}
             >
               <Icon className="w-5 h-5" />
               {isActive && (
